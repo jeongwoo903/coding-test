@@ -41,19 +41,20 @@ void postOrder(char child) {
 int main(){
   
   cin>>n;
-    for(int i=0; i<n; i++){
-      char parent, left, right;
-      cin >> parent >> left >> right;
+  for(int i=0; i<n; i++){
+    char parent, left, right;
+    cin >> parent >> left >> right;
 
-      node[parent-'A'].first=left;
-      node[parent-'A'].second=right;
-    }
-  
-    preOrder('A');
-    cout<<"\n";
+    // 문자를 index형식으로 사용하기 위해 parent - 'A'와 같은 형식으로 접근
+    node[parent-'A'].first=left;
+    node[parent-'A'].second=right;
+  }
 
-    inOrder('A');
-    cout<<"\n";
+  preOrder('A');
+  cout<<"\n";
 
-    postOrder('A');
+  inOrder('A');
+  cout<<"\n";
+
+  postOrder('A');
 }
