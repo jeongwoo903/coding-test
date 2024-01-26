@@ -20,14 +20,16 @@ int main() {
 }
 
 void DFS(int num, int digit) {
+  int n_list[4] = {1,3,7,9};
+
   if(digit == N) {
     if(isPrime(num)) { cout << num << "\n"; }
     return;
   }
 
-  for(int i = 1; i < 10; i++) {
-    if(i % 2 == 0) { continue; }
-    if(isPrime(num*10 + i)) { DFS(num*10 + i, digit + 1); }
+  for(int i: n_list) {
+    int x = num * 10 + i;
+    if(isPrime(x)) { DFS(x, digit + 1); }
   }
 }
 
