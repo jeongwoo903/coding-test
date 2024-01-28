@@ -1,75 +1,69 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-#include <cstring>
 #include <algorithm>
-
+ 
 using namespace std;
 
-int n, m, v;
-vector<int> graph[1001];
-queue<int> Q;
-bool visit[1001];
+static vector<vector<int>> graph;
+static vector<bool> visited;
 
-void BFS(int start)
-{
-  memset(visit, false, sizeof(visit));
-  Q.push(start);
-  visit[start] = true;
+static queue<int> q;
 
-  while (!Q.empty())
-  {
-    int now = Q.front();
-    Q.pop();
-    cout << now << " ";
+void BFS(int k) {
+  q.push(k);
+  visited[k] = true;
 
-    for (int i = 0; i < graph[now].size(); i++)
-    {
-      int next = graph[now][i];
-      if (!visit[next])
-      {
-        Q.push(next);
-        visit[next] = true;
+  while(!q.empty()) {
+    int now = q.front();
+    q.pop();
+    cout << now << ' ';
+    
+    for(int i: graph[now]) {
+      if(!visited[i]) {
+        visited[i] = true;
+        q.push(i);
       }
     }
   }
 }
 
-void DFS(int start)
-{
-  visit[start] = true;
-  cout << start << " ";
+void DFS(int k) {
+  if(visited[k]) { return; }
+  visited[k] = true;
+  cout << k << ' ';
 
-  for (int i = 0; i < graph[start].size(); i++)
-  {
-    int next = graph[start][i];
-    if (!visit[next])
-      DFS(next);
+  for(int i: graph[k]) {
+    if(!visited[i]) { DFS(i); }
   }
 }
+ 
+int main() {
+  ios::sync_with_stdio(false);
+  cin.tie(NULL);
+  cout.tie(NULL);
+ 
+  int n, e, s;
+  cin >> n >> e >> s;
 
-int main()
-{
-  ios_base::sync_with_stdio(0);
-  cin.tie(0);
+  graph.resize(n+1);
+  visited = vector<bool>(n+1, false);
 
-  cin >> n >> m >> v;
-
-  while (m--)
-  {
-    int x, y;
-    cin >> x >> y;
-    graph[x].push_back(y);
-    graph[y].push_back(x);
+  int a, b;
+  for(int i = 1; i <= e; i++) {
+    cin >> a >> b;
+    graph[a].push_back(b);
+    graph[b].push_back(a);
   }
 
-  for (int i = 1; i <= n; i++)
-  {
-    sort(graph[i].begin(), graph[i].end());
-    // 인접리스트 정렬
+  for(int i = 1; i <= n; i++) {
+    sort(graph[i].begin(), graph[i].end(), less<int>());
   }
-
-  DFS(v);
+  
+  DFS(s);
   cout << "\n";
-  BFS(v);
+  fill(visited.begin(), visited.end(), false);
+  BFS(s);
+  
+  return 0;
 }
