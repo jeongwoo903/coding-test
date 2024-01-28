@@ -8,25 +8,33 @@ int main() {
   cin.tie(NULL);
   cout.tie(NULL);
  
-  int n, len;
-  cin >> n >> len;
+  int n, m;
+  cin >> n >> m;
 
   string str;
   cin >> str;
 
-  string main = "I";
-  for(int i = 0; i < n; i++) { main += "OI"; }
-
   int cnt = 0;
-  int gap = n*2 + 1;
+  for(int i = 0; i < m; i++) {
+    int len = 0;
 
-  for(int i = 0; i < len; i++) {
-    if(i + gap > len) { break; }
-    string sub = str.substr(i, gap);
-    int result = main.compare(sub);
+    if(str[i] == 'O') { continue; }
+    else {
+      while(str[i + 1] == 'O' && str[i + 2] == 'I') {
+        len++;
 
-    if(result == 0) { cnt++; }
+        if(len == n) {
+          cnt++;
+          len--;
+        }
+
+        i += 2;
+      }
+    }
+    
+    len = 0;
   }
 
   cout << cnt;
+  return 0;
 }
