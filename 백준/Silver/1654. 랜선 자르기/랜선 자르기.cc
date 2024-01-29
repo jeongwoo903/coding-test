@@ -6,12 +6,12 @@ using namespace std;
 
 static vector<int> v;
 static int k, n;
-static long long ans = 0;
+static int ans = 0;
 
 void cutting(long long start, long long end) {
   if(start > end) { return; }
 
-  long long  mid = (start + end) / 2;
+  long long mid = (start + end) / 2;
   long long len = 0;
 
   for(int i: v) { len += i / mid; }
