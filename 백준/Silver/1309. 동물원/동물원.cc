@@ -1,6 +1,4 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
  
 #define endl '\n'
 #define MAX 100001
