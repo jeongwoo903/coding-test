@@ -1,0 +1,11 @@
+-- 코드를 입력하세요
+(SELECT date_format(SALES_DATE, "%Y-%m-%d") as SALES_DATE, PRODUCT_ID, USER_ID, SALES_AMOUNT
+FROM ONLINE_SALE
+WHERE date_format(SALES_DATE, "%Y-%m") = "2022-03"
+
+UNION
+
+SELECT date_format(SALES_DATE, "%Y-%m-%d") as SALES_DATE, PRODUCT_ID, null as USER_ID, SALES_AMOUNT
+FROM OFFLINE_SALE
+WHERE date_format(SALES_DATE, "%Y-%m") = "2022-03")
+ORDER BY SALES_DATE, PRODUCT_ID, user_id
